@@ -22,7 +22,7 @@ function [er1B, er1B_sd] = bootstrap_double(n, cedge, B, C, num_func)
     
     er1B = zeros(B,num_func);
     er1B_sd = zeros(B,num_func);
-    for b = 1:B
+    parfor b = 1:B
         s1 = randsample(1:k1,k,true,cedge(:,4)/k);
         a1 = tabulate(s1);
         a1 = transpose(a1(a1(:,2)>0,1:2));
