@@ -1,8 +1,19 @@
-function [er1B, er1B_sd] = bootstrap_double(N, cedge, B, C, num_func)
+function [er1B, er1B_sd] = bootstrap_double(n, cedge, B, C, num_func)
+% Algorithm 1 from the paper "Empirical Error Estimates for Graph Sparsification"
+% Inputs:
+%   - n: Number of nodes in the graph
+%   - B: Bootstrapping sample size for the first loop
+%   - C: Bootstrapping sample size for the second loop
+%   - num_func: Number of functions to be estimated
+%   - cedge: An N×4 matrix where:
+%       * The first two columns represent the nodes of the sampled edges.
+%       * The third column contains the weights of the edges in the sparsified graph.
+%       * The fourth column indicates the number of times each edge is sampled.
+
 %     cedge = zeros(k1,3);
 %     cedge(:,1:2) = nonzero1(a(:,1),:);
 %     cedge(:,3) = -L0(nonzero(a(:,1)))./p1(a(:,1))/k.*a(:,2);
-    S0 = sparse(cedge(:,1),cedge(:,2),cedge(:,3),N,N);
+    S0 = sparse(cedge(:,1),cedge(:,2),cedge(:,3),n,n);
     S = S0 + transpose(S0);
     SS = sum(S);
     S = diag(-SS) + S;
@@ -22,7 +33,7 @@ function [er1B, er1B_sd] = bootstrap_double(N, cedge, B, C, num_func)
         cedge_b(:,1:2) = cedge(a1(1,:),1:2);
         cedge_b(:,3) = cedge(a1(1,:),3)./cedge(a1(1,:),4) .* transpose(a1(2,:));
 
-        S0 = sparse(cedge_b(:,1),cedge_b(:,2),cedge_b(:,3),N,N);
+        S0 = sparse(cedge_b(:,1),cedge_b(:,2),cedge_b(:,3),n,n);
         S1 = S0 + transpose(S0);
         SS = sum(S1);
         S1 = diag(-SS) + S1;
@@ -38,7 +49,7 @@ function [er1B, er1B_sd] = bootstrap_double(N, cedge, B, C, num_func)
             cedge_b1 = zeros(k3,3);
             cedge_b1(:,1:2) = cedge_b(a2(1,:),1:2);
             cedge_b1(:,3) = cedge_b(a2(1,:),3)./transpose(a1(2,a2(1,:))) .* transpose(a2(2,:));
-            S01 = sparse(cedge_b1(:,1),cedge_b1(:,2),cedge_b1(:,3),N,N);
+            S01 = sparse(cedge_b1(:,1),cedge_b1(:,2),cedge_b1(:,3),n,n);
             S11 = S01 + transpose(S01);
             SS1 = sum(S11);
             S11 = diag(-SS1) + S11;
@@ -50,7 +61,7 @@ function [er1B, er1B_sd] = bootstrap_double(N, cedge, B, C, num_func)
         val = func(S,S1);
         
         er1B(b,:) = val;
-        er1B_sd(b,:) = (val - mean(er1B1))./std(er1B1);
+        er1B_sd(b,:) = (val - mean(er1B1))./std(er1B1).*std(er1B)+mean(er1B);
     end
 end
 
