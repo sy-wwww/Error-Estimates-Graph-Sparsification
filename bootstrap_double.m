@@ -1,4 +1,4 @@
-function [er1B, er1B_sd] = bootstrap_double(n, cedge, B, C, num_func)
+function er1B_sd = bootstrap_double(n, cedge, B, C, num_func)
 % Algorithm 1 from the paper "Empirical Error Estimates for Graph Sparsification"
 % Inputs:
 %   - n: Number of nodes in the graph
