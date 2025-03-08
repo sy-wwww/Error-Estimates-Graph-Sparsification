@@ -5,7 +5,7 @@ function er1B_sd = bootstrap_double(n, cedge, B, C, num_func, y, lambda)
 %   - B: Bootstrapping sample size for the first loop
 %   - C: Bootstrapping sample size for the second loop
 %   - num_func: Number of functions to be estimated
-%   - cedge: An N×4 matrix where:
+%   - cedge: An N*4 matrix where:
 %       * The first two columns represent the nodes of the sampled edges.
 %       * The third column contains the weights of the edges in the sparsified graph.
 %       * The fourth column indicates the number of times each edge is sampled.
