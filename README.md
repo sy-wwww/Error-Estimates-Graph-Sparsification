@@ -1,6 +1,6 @@
 # Error-Estimates-for-Graph-Sparsification
 
-This repository contains MATLAB implementations of algorithms for estimating errors in graph sparsification, as described in the paper *"Empirical Error Estimates for Graph Sparsification"*. 
+This repository contains MATLAB implementations of algorithms for estimating errors in graph sparsification, as described in the paper `Empirical Error Estimates for Graph Sparsification`. 
 
 ## Files
 
