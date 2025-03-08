@@ -5,7 +5,7 @@ This repository contains MATLAB implementations of algorithms for estimating err
 ## Files
 
 ### 1. `bootstrap_double.m`
-This file implements **Algorithm 1** from the paper. It performs a double bootstrapping process to estimate errors in graph sparsification.
+This file implements Algorithm 1 from the paper. It performs a double bootstrapping process to estimate errors in graph sparsification.
 
 #### Inputs:
 - `n`: Number of nodes in the graph.
@@ -23,14 +23,10 @@ This file implements **Algorithm 1** from the paper. It performs a double bootst
 #### Outputs:
 - `er18_sd`: Error estimates for the double bootstrapping process.
 
-#### Key Steps:
-1. Constructs a sparse matrix `S` from the input edge data.
-2. Performs bootstrapping to estimate errors and their standard deviations.
-
 ---
 
 ### 2. `graph_cut.m`
-This file implements **Algorithm 2** from the paper. It focuses on graph cut operations to estimate errors in graph sparsification.
+This file implements Algorithm 2 from the paper. It focuses on graph cut operations to estimate errors in graph sparsification.
 
 #### Inputs:
 - `n`: Number of nodes in the graph.
@@ -43,3 +39,19 @@ This file implements **Algorithm 2** from the paper. It focuses on graph cut ope
 
 #### Outputs:
 - `er1B`: Error estimates for the bootstrapping process.
+
+
+### 3. `spectral_clustering.m`
+This file implements Algorithm 2 for spectral clustering from the paper. It performs spectral clustering on the graph.
+
+#### Inputs:
+- `n`: Number of nodes in the graph.
+- `B`: Bootstrapping sample size for the first loop.
+- `cedge`: An $N \times 4$ matrix where:
+  - The first two columns represent the nodes of the sampled edges.
+  - The third column contains the weights of the edges in the sparsified graph.
+  - The fourth column indicates the number of times each edge is sampled.
+- `r`: A number that the user believes is safely above the correct number of clusters.
+
+#### Outputs:
+- `er1B`:  Error estimates for spectral clustering, i.e. $\xi_b^*= \max_{2 \leq j \leq r} |\lambda_j(\hat{L}^*)/\lambda_j(\hat L)-1|$.
