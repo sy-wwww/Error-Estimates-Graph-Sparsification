@@ -16,6 +16,9 @@ This file implements **Algorithm 1** from the paper. It performs a double bootst
   - The first two columns represent the nodes of the sampled edges.
   - The third column contains the weights of the edges in the sparsified graph.
   - The fourth column indicates the number of times each edge is sampled.
+- `y`: Parameter for graph-structured regression (optional, default = 0).
+- `lambda`: Parameter for graph-structured regression (optional, default = 0)
+
 
 #### Outputs:
 - `er18_sd`: Error estimates for the double bootstrapping process.
