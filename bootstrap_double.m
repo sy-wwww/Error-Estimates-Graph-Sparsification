@@ -1,4 +1,4 @@
-function er1B_sd = bootstrap_double(n, cedge, B, C, num_func)
+function er1B_sd = bootstrap_double(n, cedge, B, C, num_func, y, lambda)
 % Algorithm 1 from the paper "Empirical Error Estimates for Graph Sparsification"
 % Inputs:
 %   - n: Number of nodes in the graph
@@ -9,10 +9,19 @@ function er1B_sd = bootstrap_double(n, cedge, B, C, num_func)
 %       * The first two columns represent the nodes of the sampled edges.
 %       * The third column contains the weights of the edges in the sparsified graph.
 %       * The fourth column indicates the number of times each edge is sampled.
+%   - y: Parameter for graph-structured regression (optional, default = 0).
+%   - lambda: Parameter for graph-structured regression (optional, default = 0).
 
 %     cedge = zeros(k1,3);
 %     cedge(:,1:2) = nonzero1(a(:,1),:);
 %     cedge(:,3) = -L0(nonzero(a(:,1)))./p1(a(:,1))/k.*a(:,2);
+
+    
+    if nargin < 7
+        y = zeros(n,1);
+        lambda = 0;
+    end
+    
     S0 = sparse(cedge(:,1),cedge(:,2),cedge(:,3),n,n);
     S = S0 + transpose(S0);
     SS = sum(S);
@@ -54,14 +63,15 @@ function er1B_sd = bootstrap_double(n, cedge, B, C, num_func)
             SS1 = sum(S11);
             S11 = diag(-SS1) + S11;
 
-            er1B1(t,:) = func(S1,S11);
+            er1B1(t,:) = func(S1,S11,lambda,y);
 
         end
 
-        val = func(S,S1);
+        val = func(S,S1,lambda,y);
         
         er1B(b,:) = val;
-        er1B_sd(b,:) = (val - mean(er1B1))./std(er1B1).*std(er1B)+mean(er1B);
+        er1B_sd(b,:) = (val - mean(er1B1))./std(er1B1);
     end
+    er1B_sd = er1B_sd.*std(er1B)+mean(er1B);
 end
 
