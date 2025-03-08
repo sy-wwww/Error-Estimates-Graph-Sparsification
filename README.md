@@ -54,4 +54,4 @@ This file implements Algorithm 2 for spectral clustering from the paper. It perf
 - `r`: A number that the user believes is safely above the correct number of clusters.
 
 #### Outputs:
-- `er1B`:  Error estimates for spectral clustering, i.e. $\xi_b^*= \max_{2 \leq j \leq r} |\lambda_j(\hat{L}^*)/\lambda_j(\hat L)-1|$.
+- `er1B`:  Error estimates for spectral clustering, i.e. $\xi_b^* = \max_{2 \leq j \leq r} |\lambda_j(\hat{L}^*)/\lambda_j(\hat L)-1|$.
