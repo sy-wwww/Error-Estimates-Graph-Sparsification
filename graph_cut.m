@@ -3,7 +3,7 @@ function er1B = graph_cut(n, cedge, B, CCS)
 % Inputs:
 %   - n: Number of nodes in the graph
 %   - B: Bootstrapping sample size
-%   - cedge: An N×4 matrix where:
+%   - cedge: An N*4 matrix where:
 %       * The first two columns represent the nodes of the sampled edges.
 %       * The third column contains the weights of the edges in the sparsified graph.
 %       * The fourth column indicates the number of times each edge is sampled.
